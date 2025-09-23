@@ -22,7 +22,7 @@ Ce dépôt contient la documentation publique **production** de l’API Sycon Cl
 Exemples : `examples/`
 
 ## Spécification OpenAPI
-Spécification 3.1 : `openapi/sycon-cloud-api.json`.
+Spécification 3.1 : `docs/v3/sycon-cloud-api`.
 
 ## Support
 - Site : <https://www.sycon.fr/>
