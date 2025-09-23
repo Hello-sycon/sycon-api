@@ -6,8 +6,8 @@
 Ce guide explique comment **s’authentifier**, **explorer la documentation Swagger**, **lister vos équipements** et **récupérer des données brutes** dans l’environnement **Production**.
 
 **Swagger UI (lecture seule)** : <https://hello-sycon.github.io/sycon-api-production/>  
-**Base URL API** : <https://cloud.sycon.io>  
-**Version OpenAPI** : 3.1 — **API v1.2.0**
+**URL API** : <https://cloud.sycon.io>  
+**Version OpenAPI** : 3.1 — **Version API Sycon** : v1.2.0
 
 ---
 
