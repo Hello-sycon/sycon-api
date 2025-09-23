@@ -1,4 +1,7 @@
 # Sycon Cloud API — Production Docs
+<a href="https://www.sycon.fr">
+  <img src="docs/assets/logo.webp" alt="Sycon" align="right" width="240">
+</a>
 
 [![OpenAPI](https://img.shields.io/badge/OpenAPI-3.1-blue.svg)](#)
 [![Docs](https://img.shields.io/badge/Docs-MkDocs%20or%20SwaggerUI-success.svg)](#)
@@ -6,9 +9,9 @@
 
 Ce dépôt contient la documentation publique **production** de l’API Sycon Cloud.
 
-- **Base URL :** `https://cloud.sycon.io`
-- **Swagger UI :** (voir GitHub Pages)
-- **Guide d’utilisation :** `docs/guide.md`
+- **Base URL :** <https://cloud.sycon.io>
+- **Swagger UI :** <https://hello-sycon.github.io/sycon-api-production/>
+- **Guide d’utilisation :** [docs/guide.md](docs/guide.md)
 
 ## Démarrage rapide
 
@@ -19,8 +22,8 @@ Ce dépôt contient la documentation publique **production** de l’API Sycon Cl
 Exemples : `examples/`
 
 ## Spécification OpenAPI
-Spécification 3.1 : `openapi/sycon-cloud-api.yaml`.
+Spécification 3.1 : `openapi/sycon-cloud-api.json`.
 
 ## Support
-- Site : https://www.sycon.fr/
-- Contact : hello@sycon.fr
+- Site : <https://www.sycon.fr/>
+- Contact : <hello@sycon.fr>
