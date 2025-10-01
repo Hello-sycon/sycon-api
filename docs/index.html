@@ -1,0 +1,21 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <title>Sycon Cloud API</title>
+  <link rel="stylesheet" href="./swagger-ui-dist/swagger-ui.css">
+</head>
+<body>
+<div id="swagger-ui"></div>
+<script src="./swagger-ui-dist/swagger-ui-bundle.js"></script>
+<script src="./swagger-ui-dist/swagger-ui-standalone-preset.js"></script>
+<script>
+  window.ui = SwaggerUIBundle({
+    url: "v1.2.0/sycon-cloud-api",
+    dom_id: '#swagger-ui',
+    presets: [SwaggerUIBundle.presets.apis, SwaggerUIStandalonePreset],
+    layout: "StandaloneLayout"
+  });
+</script>
+</body>
+</html>
