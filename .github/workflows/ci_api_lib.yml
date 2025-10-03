@@ -29,7 +29,7 @@ jobs:
       - name: Make run_tests.sh executable
         run: |
             cd libs/SyconApi
-            chm1od +x ./run_tests.sh
+            chmod +x ./run_tests.sh
 
       - name: Run tests script
         env:
