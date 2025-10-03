@@ -6,16 +6,16 @@ Lightweight Python client for the Sycon cloud API — concise, synchronous wrapp
 
 ```bash
 # HTTPS
-pip install "git+https://github.com/Hello-sycon/sycon_api.git@SyconApi-v$VERSION#subdirectory=libs/SyconApi"
+pip install "git+https://github.com/Hello-sycon/sycon-api.git@SyconApi-v$VERSION#subdirectory=libs/SyconApi"
 
 #SSH
-pip install "git+ssh://git@github.com/Hello-sycon/sycon_api.git@SyconApi-v$VERSION#subdirectory=libs/SyconApi"
+pip install "git+ssh://git@github.com/Hello-sycon/sycon-api.git@SyconApi-v$VERSION#subdirectory=libs/SyconApi"
 ```
 
 ## Quick example
 
 ```py
-from sycon_api.sycon_api import SyconApi
+from sycon_api import SyconApi
 
 client = SyconApi(username="me@example.com", password="secret", debug=False)
 
