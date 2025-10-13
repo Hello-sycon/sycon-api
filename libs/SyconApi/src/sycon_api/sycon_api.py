@@ -283,6 +283,10 @@ class SyconApi:
 
         if response.status_code == 200:
             self._token = response.headers.get("Authorization")
+            return True
+        
+        return False
+        
 
     def renew_token(self) -> bool:
         """renew the token to authenticate to Sycon cloud
@@ -304,6 +308,8 @@ class SyconApi:
                     "Authorization token not in received response"
                 )
             self._token = response.headers.get("Authorization")
+            return True
+        return False
 
     def check_token(self) -> bool:
         """check the token validity to authenticate to Sycon cloud

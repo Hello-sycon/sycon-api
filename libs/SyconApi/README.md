@@ -12,6 +12,9 @@ pip install "git+https://github.com/Hello-sycon/sycon-api.git@SyconApi-v$VERSION
 pip install "git+ssh://git@github.com/Hello-sycon/sycon-api.git@SyconApi-v$VERSION#subdirectory=libs/SyconApi"
 ```
 
+>[!NOTE]
+>To select the $VERSION variable, you can see the release associate to tag section in github repository
+
 ## Quick example
 
 ```py
