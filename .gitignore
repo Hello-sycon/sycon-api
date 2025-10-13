@@ -1,0 +1,8 @@
+# auto generated
+.venv
+.pycache
+.pytest_cache
+htmlcov
+.coverage
+__pycache__
+SyconApi.egg-info

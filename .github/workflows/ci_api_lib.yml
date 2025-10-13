@@ -1,0 +1,46 @@
+name: CI — Run tests on API python lib
+
+on:
+  pull_request: {}
+  workflow_dispatch: {}
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python (ensure python3 is available)
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Show Python info
+        run: |
+          python --version
+          which python
+          pip --version
+
+      - name: Make run_tests.sh executable
+        run: |
+            cd libs/SyconApi
+            chmod +x ./run_tests.sh
+
+      - name: Run tests script
+        env:
+          CI: "true"   
+        run: |
+            cd libs/SyconApi
+            ./run_tests.sh
+
+      - name: Upload coverage HTML
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-html
+          path: libs/SyconApi/htmlcov
