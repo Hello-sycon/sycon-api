@@ -154,6 +154,7 @@ class SyconApi:
         head_limit: Optional[int] = None,
         tail_limit: Optional[int] = None,
         external_sensor_id: Optional[str] = None,
+        external_channel_id: Optional[int] = None,
     ) -> None:
         """fill args by arguments
         @param args: dict to fill
@@ -186,6 +187,9 @@ class SyconApi:
 
         if external_sensor_id is not None:
             args["externalSensorId"] = external_sensor_id
+        
+        if external_channel_id is not None:
+            args["channel"] = int(external_channel_id)
 
     def _manage_token(self) -> None:
         """Manage token to add in request"""
@@ -361,6 +365,7 @@ class SyconApi:
         head_limit: Optional[int] = None,
         tail_limit: Optional[int] = None,
         external_sensor_id: Optional[str] = None,
+        external_channel_id: Optional[str] = None
     ) -> Optional[Dict[str, Any]]:
         """@brief Get data produces between start and end time for precised field about device identifier
         @param device_id: device identifier
@@ -387,6 +392,7 @@ class SyconApi:
         @param head_limit: [Optional] the limit of values to return from the start (<= 10000)
         @param tail_limit: [Optional] the limit of values to return from the end (<= 10000)
         @param external_sensor_id: [Optional] external sensor identifier
+        @param external_channel_id: [Optional] external sensor channel identifier
         @note either head_limit or tail_limit must be used
         """
         args: Dict[str, Any] = {}
@@ -402,6 +408,7 @@ class SyconApi:
             head_limit=head_limit,
             tail_limit=tail_limit,
             external_sensor_id=external_sensor_id,
+            external_channel_id=external_channel_id,
         )
         self._manage_token()
 

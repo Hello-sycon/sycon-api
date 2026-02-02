@@ -78,8 +78,11 @@ def test_fill_get_data_args_caps_and_external(monkeypatch):
     assert args["tailLimit"] == SyconApi.k_size_batch_limit
 
     args = {}
-    c._fill_get_data_args(args=args, start_date="s", end_date="e", head_limit=1, external_sensor_id="ext123")
+    c._fill_get_data_args(args=args, start_date="s", end_date="e", head_limit=1, external_sensor_id="ext123", external_channel_id="42")
     assert args["externalSensorId"] == "ext123"
+    assert args["channel"] == 42
+
+
 
 
 # ---------- _get_request / _post_request behavior (use __wrapped__ to bypass tenacity waits) ----------
