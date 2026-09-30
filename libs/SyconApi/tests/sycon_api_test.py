@@ -8,6 +8,7 @@ from sycon_api.sycon_api import (
     SyconApiMissingParametersException,
     SyconApiInvalidParametersException,
     SyconApiBadResponseException,
+    SyconApiNotFoundException,
     SyconApiServerErrorResponseException,
 )
 
@@ -102,6 +103,33 @@ def test__get_request_raises_client_bad_response(monkeypatch):
     monkeypatch.setattr(requests, "get", fake_get)
     with pytest.raises(SyconApiBadResponseException):
         SyconApi._get_request.__wrapped__(headers={}, url="http://x", args={})
+
+
+def test__get_request_raises_not_found(monkeypatch):
+    def fake_get(url, params=None, headers=None, timeout=None):
+        return FakeResponse(status_code=404, text="not found")
+
+    monkeypatch.setattr(requests, "get", fake_get)
+    with pytest.raises(SyconApiNotFoundException):
+        SyconApi._get_request.__wrapped__(headers={}, url="http://x", args={})
+
+
+def test__post_request_raises_not_found(monkeypatch):
+    def fake_post(url, headers=None, data=None, timeout=None):
+        return FakeResponse(status_code=404, text="not found")
+
+    monkeypatch.setattr(requests, "post", fake_post)
+    with pytest.raises(SyconApiNotFoundException):
+        SyconApi._post_request.__wrapped__(headers={}, url="http://x", data={})
+
+
+def test__put_request_raises_not_found(monkeypatch):
+    def fake_put(url, headers=None, data=None, timeout=None):
+        return FakeResponse(status_code=404, text="not found")
+
+    monkeypatch.setattr(requests, "put", fake_put)
+    with pytest.raises(SyconApiNotFoundException):
+        SyconApi._put_request.__wrapped__(headers={}, url="http://x", data={})
 
 
 def test__post_request_raises_server_and_client(monkeypatch):

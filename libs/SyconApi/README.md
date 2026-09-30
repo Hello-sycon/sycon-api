@@ -81,6 +81,7 @@ All methods below belong to `SyconApi` (no leading underscore).
 * `SyconApiInvalidParametersException` — invalid argument(s).
 * `SyconApiMissingParametersException` — required parameter missing.
 * `SyconApiBadResponseException` — 4xx HTTP response or invalid JSON where JSON is expected.
+* `SyconApiNotFoundException` — 404 HTTP response (subclass of `SyconApiBadResponseException`).
 * `SyconApiServerErrorResponseException` — 5xx HTTP response.
 
 ### Main methods
@@ -111,5 +112,5 @@ All methods below belong to `SyconApi` (no leading underscore).
 * **Dates:** use strict ISO-8601 instant format: `YYYY-MM-DDTHH:MM:SS[.ms]Z` (example: `2025-10-03T12:30:00.000Z`). Invalid format raises `SyconApiInvalidParametersException`.
 * **Head/Tail limits:** exactly one of `head_limit` or `tail_limit` must be provided (not both). Limits are capped to `k_size_batch_limit` (default 10000).
 * **Caching:** `get_data_from_devices` and `get_data_from_device` are cached (`lru_cache`). For cached calls, ensure all arguments are hashable (use `tuple` for device lists). You can clear the cache with e.g. `SyconApi.get_data_from_devices.cache_clear()`.
-* **Errors:** 4xx responses raise `SyconApiBadResponseException`; 5xx raise `SyconApiServerErrorResponseException`. Network-level errors (requests exceptions) will propagate.
+* **Errors:** 4xx responses raise `SyconApiBadResponseException` (404 raises its subclass `SyconApiNotFoundException`); 5xx raise `SyconApiServerErrorResponseException`. Network-level errors (requests exceptions) will propagate.
 * **Logging:** enable `debug=True` in the constructor to activate the internal logger.
