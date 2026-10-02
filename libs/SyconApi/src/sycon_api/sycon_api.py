@@ -25,6 +25,10 @@ class SyconApiBadResponseException(Exception):
     pass
 
 
+class SyconApiNotFoundException(SyconApiBadResponseException):
+    pass
+
+
 class SyconApiServerErrorResponseException(Exception):
     pass
 
@@ -230,6 +234,11 @@ class SyconApi:
                 f"Server error {rep.status_code} : {rep.text}"
             )
 
+        if rep.status_code == 404:
+            raise SyconApiNotFoundException(
+                f"Not found {rep.status_code} : {rep.text}"
+            )
+
         if rep.status_code >= 400 and rep.status_code < 500:
             raise SyconApiBadResponseException(
                 f"Invalid response from server {rep.status_code} : {rep.text}"
@@ -260,6 +269,11 @@ class SyconApi:
                 f"Server error {rep.status_code} : {rep.text}"
             )
 
+        if rep.status_code == 404:
+            raise SyconApiNotFoundException(
+                f"Not found {rep.status_code} : {rep.text}"
+            )
+
         if rep.status_code >= 400 and rep.status_code < 500:
             raise SyconApiBadResponseException(
                 f"Invalid response from server {rep.status_code} : {rep.text}"
@@ -288,6 +302,11 @@ class SyconApi:
         if rep.status_code >= 500 and rep.status_code < 600:
             raise SyconApiServerErrorResponseException(
                 f"Server error {rep.status_code} : {rep.text}"
+            )
+
+        if rep.status_code == 404:
+            raise SyconApiNotFoundException(
+                f"Not found {rep.status_code} : {rep.text}"
             )
 
         if rep.status_code >= 400 and rep.status_code < 500:
