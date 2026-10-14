@@ -316,6 +316,38 @@ class SyconApi:
 
         return rep
 
+    @staticmethod
+    @retry(
+        stop=stop_after_attempt(3),
+        wait=wait_exponential(multiplier=1, min=5, max=15),
+        retry=retry_if_exception_type(SyconApiServerErrorResponseException),
+    )
+    def _delete_request(headers: Dict[str, str], url: str) -> requests.Response:
+        """send a delete request to url
+        @param headers: headers to request
+        @param: url: url
+        @return response"""
+        rep: requests.Response = requests.delete(
+            url=url, headers=headers, timeout=30
+        )
+
+        if rep.status_code >= 500 and rep.status_code < 600:
+            raise SyconApiServerErrorResponseException(
+                f"Server error {rep.status_code} : {rep.text}"
+            )
+
+        if rep.status_code == 404:
+            raise SyconApiNotFoundException(
+                f"Not found {rep.status_code} : {rep.text}"
+            )
+
+        if rep.status_code >= 400 and rep.status_code < 500:
+            raise SyconApiBadResponseException(
+                f"Invalid response from server {rep.status_code} : {rep.text}"
+            )
+
+        return rep
+
     def authenticate(self) -> bool:
         """authenticates to Sycon cloud by using username/password
         @return True if authentication is success, False otherwise
