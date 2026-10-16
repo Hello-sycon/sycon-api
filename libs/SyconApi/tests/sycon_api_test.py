@@ -2,6 +2,7 @@
 import pytest
 from unittest.mock import MagicMock
 import requests
+import tenacity
 
 from sycon_api.sycon_api import (
     SyconApi,
@@ -130,6 +131,50 @@ def test__put_request_raises_not_found(monkeypatch):
     monkeypatch.setattr(requests, "put", fake_put)
     with pytest.raises(SyconApiNotFoundException):
         SyconApi._put_request.__wrapped__(headers={}, url="http://x", data={})
+
+
+def test__delete_request_success_returns_response(monkeypatch):
+    calls = {}
+
+    def fake_delete(url, headers=None, timeout=None):
+        calls.update(url=url, headers=headers)
+        return FakeResponse(status_code=204)
+
+    monkeypatch.setattr(requests, "delete", fake_delete)
+    rep = SyconApi._delete_request.__wrapped__(headers={"a": "b"}, url="http://x")
+    assert rep.status_code == 204
+    assert calls == {"url": "http://x", "headers": {"a": "b"}}
+
+
+@pytest.mark.parametrize(
+    "status, exc",
+    [
+        (503, SyconApiServerErrorResponseException),
+        (404, SyconApiNotFoundException),
+        (409, SyconApiBadResponseException),
+    ],
+)
+def test__delete_request_error_mapping(monkeypatch, status, exc):
+    def fake_delete(url, headers=None, timeout=None):
+        return FakeResponse(status_code=status, text="err")
+
+    monkeypatch.setattr(requests, "delete", fake_delete)
+    with pytest.raises(exc):
+        SyconApi._delete_request.__wrapped__(headers={}, url="http://x")
+
+
+def test__delete_request_retries_on_server_error(monkeypatch):
+    attempts = []
+
+    def fake_delete(url, headers=None, timeout=None):
+        attempts.append(1)
+        return FakeResponse(status_code=500, text="err")
+
+    monkeypatch.setattr(requests, "delete", fake_delete)
+    monkeypatch.setattr(SyconApi._delete_request.retry, "wait", lambda *a, **k: 0)
+    with pytest.raises(tenacity.RetryError):
+        SyconApi._delete_request(headers={}, url="http://x")
+    assert len(attempts) == 3
 
 
 def test__post_request_raises_server_and_client(monkeypatch):
